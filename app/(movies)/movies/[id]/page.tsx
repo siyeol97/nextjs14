@@ -1,6 +1,18 @@
 import { Suspense } from 'react';
-import MovieInfo from '../../../../components/movie-info';
+import MovieInfo, { getMovie } from '../../../../components/movie-info';
 import MovieVideos from '../../../../components/movie-videos';
+
+// dynamic metadata를 위해 자동으로 호출
+export const generateMetadata = async ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const movie = await getMovie(id);
+  return {
+    title: movie.title,
+  };
+};
 
 export default async function MovieDetail({
   params: { id },
